@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 import { Container } from './styles';
 
@@ -6,16 +6,20 @@ import Mainheader from '../MainHeader'
 import Aside from '../Aside'
 import Content from '../Content'
 
-const Layout: React.FC = () => {
+interface BaseLayoutProps {
+    children?: ReactNode;
+  }
+
+const Layout: React.FC<BaseLayoutProps> = ( {children} ) => {
     return (
 
         <Container>
 
             <Mainheader />
             <Aside />
-            <Content />
-                
-            
+            <Content>
+                {children}
+            </Content>
         </Container>
     );
 } 
