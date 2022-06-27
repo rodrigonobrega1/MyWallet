@@ -5,6 +5,7 @@ import GlobalStyles from "./Styles/GlobalStyles";
 
 import Layout from "./components/Layout";
 import Dashboard from "./Pages/Dashboard";
+import List from "./Pages/List";
 import dark from './Styles/Themes/dark';
 
 const App: React.FC = () => {
@@ -13,7 +14,7 @@ const App: React.FC = () => {
         <ThemeProvider theme={ dark }>
             <GlobalStyles />
             <Layout>
-                <Dashboard />
+                <List />
             </Layout>
             
         </ThemeProvider>
