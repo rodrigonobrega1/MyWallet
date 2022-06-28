@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, {useMemo} from "react";
+import { useParams } from 'react-router-dom';
 import ContentHeader from "../../components/ContentHeader";
 import SelectInput from "../../components/SelectInput";
 import HistoryFinanceCard from "../../components/HistoryFinanceCard";
@@ -7,6 +7,15 @@ import HistoryFinanceCard from "../../components/HistoryFinanceCard";
 import { Container, Content, Filters } from './styles'
 
 const List: React.FC = () => {
+    const {type} = useParams();
+    
+    const title = useMemo(() => {
+            return type === 'entry-balance' ? 'Entry Balances' : 'Exit Balances'
+    },[type]);
+
+    const lineColor = useMemo(() => {
+        return type === 'entry-balance' ? '#f7931b' : '#e44c4e'
+},[type]);
 
     const months  = [
         {value: '1', label: 'Jan'},
@@ -31,7 +40,7 @@ const List: React.FC = () => {
 
     return (
         <Container>
-            <ContentHeader title="List" lineColor="#f7931b">
+            <ContentHeader title={title} lineColor={lineColor}>
                 <SelectInput options={months} />
                 <SelectInput options={years} />
             </ContentHeader>
