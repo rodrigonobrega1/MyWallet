@@ -32,6 +32,8 @@ export const Container = styled.li`
     }
 
     > div span {
+        font-weight: 500;
+        font-size: 20px;
         
     }
 
