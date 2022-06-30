@@ -8,6 +8,8 @@ import expenses from "../../repositories/expenses";
 import formatCurrency from '../../Utils/formatCurrency';
 import { Container, Content, Filters } from './styles'
 import formatDate from '../../Utils/formatDate';
+import listOfMonths from '../../Utils/months';
+import { v4 as uuidv4 } from 'uuid';
 
 interface IData {
     id: string;
@@ -41,25 +43,57 @@ const List: React.FC = () => {
     },[type]);
 
 
-    const months  = [
-        {value: '1', label: 'Jan'},
-        {value: '2', label: 'Feb'},
-        {value: '3', label: 'Mar'},
-        {value: '4', label: 'Apr'},
-        {value: '5', label: 'May'},
-        {value: '6', label: 'Jun'},
-        {value: '7', label: 'Jul'},
-        {value: '8', label: 'Ago'},
-        {value: '9', label: 'Set'},
-        {value: '10', label: 'Oct'},
-        {value: '11', label: 'Nov'},
-        {value: '12', label: 'Dec'}
-    ];
+    // const months  = [
+    //     {value: '1', label: 'Jan'},
+    //     {value: '2', label: 'Feb'},
+    //     {value: '3', label: 'Mar'},
+    //     {value: '4', label: 'Apr'},
+    //     {value: '5', label: 'May'},
+    //     {value: '6', label: 'Jun'},
+    //     {value: '7', label: 'Jul'},
+    //     {value: '8', label: 'Ago'},
+    //     {value: '9', label: 'Set'},
+    //     {value: '10', label: 'Oct'},
+    //     {value: '11', label: 'Nov'},
+    //     {value: '12', label: 'Dec'}
+    // ];
 
-    const years  = [
-        {value: '2021', label: '2021'},
-        {value: '2022', label: '2022'}
-    ];
+    // const years  = [
+    //     {value: '2021', label: '2021'},
+    //     {value: '2022', label: '2022'}
+    // ];
+
+
+    const months = useMemo(() => {
+        return listOfMonths.map((month, index) => {
+            return {
+                value: index + 1,
+                label: month
+            }
+        })
+
+    },[]);
+
+    const years = useMemo(() => {
+        let uniqueYears: number[] = [];
+        
+        listData.forEach(item => {
+            const date = new Date(item.date);
+            const year = date.getFullYear();
+
+            if(!uniqueYears.includes(year)){
+                uniqueYears.push(year)
+            }
+        });
+
+        return uniqueYears.map(year => {
+            return {
+                value: year,
+                label: year,
+            }
+        })
+
+    },[listData]);
 
     useEffect(() => {
 
@@ -75,7 +109,7 @@ const List: React.FC = () => {
         const formattedData = filteredDate.map(item => {
 
             return {
-                id: String(new Date().getTime()) + item.amount,
+                id: uuidv4(),
                 description: item.description,
                 amountFormatted: formatCurrency(Number(item.amount)),
                 frequency: item.frequency,
