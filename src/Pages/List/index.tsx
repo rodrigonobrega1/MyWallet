@@ -27,6 +27,7 @@ const List: React.FC = () => {
 
     const [monthSelected, setMonthSelected] = useState<string>(String (new Date().getMonth() + 1));
     const [yearSelected, setYearSelected] = useState<string>(String(new Date().getFullYear()));
+    const [selectedFrequency, setSelectedFrequency] = useState(['recurrent', 'eventual']);
 
     const {type} = useParams();
     
@@ -95,6 +96,19 @@ const List: React.FC = () => {
 
     },[listData]);
 
+
+    const handleFrequencyClick = (frequency: string) => {
+        const alreadySelected = selectedFrequency.findIndex(item => item === frequency);
+        
+        if(alreadySelected >= 0){
+            const filtered = selectedFrequency.filter(item => item !== frequency);
+            setSelectedFrequency(filtered);
+
+        }else{
+            setSelectedFrequency((prev) => [...prev, frequency]);
+        }
+    }
+
     useEffect(() => {
 
         const filteredDate = listData.filter(item => {
@@ -103,7 +117,7 @@ const List: React.FC = () => {
             const month = String(date.getMonth() + 1);
             const year = String(date.getFullYear());
 
-            return month === monthSelected && year === yearSelected;
+            return month === monthSelected && year === yearSelected && selectedFrequency.includes(item.frequency);
         });
 
         const formattedData = filteredDate.map(item => {
@@ -119,7 +133,7 @@ const List: React.FC = () => {
         });
 
         setData(formattedData);
-    },[listData, monthSelected, yearSelected, data.length]);
+    },[listData, monthSelected, yearSelected, data.length, selectedFrequency]);
 
     return (
         <Container>
@@ -130,13 +144,15 @@ const List: React.FC = () => {
 
             <Filters>
 
-                <button type="button" className="tag-filter tag-filter-recurring">
+                <button type="button" className={`tag-filter tag-filter-recurring ${selectedFrequency.includes('recurrent') && 'tag-actived'}`} 
+                        onClick={() => handleFrequencyClick('recurrent')}>
 
-                    Recurring
+                    Recurrent
 
                 </button>
-                <button type="button" className="tag-filter tag-filter-eventual">
-
+                <button type="button" className={`tag-filter tag-filter-eventual ${selectedFrequency.includes('eventual') && 'tag-actived'}`}
+                        onClick={() => handleFrequencyClick('eventual')}>
+                    
                     Eventual
 
                 </button>
