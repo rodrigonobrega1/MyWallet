@@ -32,13 +32,13 @@ const List: React.FC = () => {
 
         return movimentType === 'entry-balance' ?
             {
-                title: 'Input-balance',
-                lineColor: '#f7931b',
+                title: 'Input Moviments',
+                lineColor: '#1b64f7',
                 data: gains
             }
             :
             {
-                title: 'Output-balance',
+                title: 'Output Moviments',
                 lineColor: '#e44c4e',
                 data: expenses
             }
