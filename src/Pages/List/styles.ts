@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
 `;
 
-export const Content = styled.div`
+export const Content = styled.main`
 `;
 
 export const Filters = styled.div`
@@ -11,6 +11,7 @@ export const Filters = styled.div`
     display: flex;
     justify-content: center;
     margin-bottom: 30px;
+
     .tag-filter {
         font-size: 18px;
         font-weight: 500;
@@ -32,6 +33,7 @@ export const Filters = styled.div`
             margin: 0 auto;
             border-bottom: 10px solid ${props => props.theme.colors.warning};
         }
+        
     .tag-filter-eventual::after {
     
             content: "";
