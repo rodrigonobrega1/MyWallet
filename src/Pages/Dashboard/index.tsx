@@ -10,18 +10,12 @@ import WalletBox from '../../components/WalletBox';
 import MessageBox from "../../components/MessageBox";
 import happyImg from '../../assets/happy.svg';
 import sadImg from '../../assets/sad.svg';
-import { icons } from "react-icons";
+import PieChart from "../../components/PieChartBox";
 
 const Dashboard: React.FC = () => {
 
     const [monthSelected, setMonthSelected] = useState<number>((new Date().getMonth() + 1));
     const [yearSelected, setYearSelected] = useState<number>((new Date().getFullYear()));
-
-    const options = [
-        {value: 'Rodrigo', label: 'Rodrigo'},
-        {value: 'Tiago', label: 'Tiago'}
-
-    ];
 
 
     const months = useMemo(() => {
@@ -131,6 +125,31 @@ const Dashboard: React.FC = () => {
     
     },[totalBalance]);
 
+    const relationExpensesVersusGains = useMemo (() => {
+        
+        const total = totalGains + totalExpenses;
+
+        const percentGains = (totalGains / total) * 100;
+        const percentExpenses = (totalExpenses / total) * 100;
+        const data = [
+            {
+                name: "Input",
+                value: totalExpenses,
+                percent: Number(percentGains.toFixed(1)),
+                color: '#f7931b'
+            },
+            {
+                name: "Output",
+                value: totalExpenses,
+                percent: Number(percentExpenses.toFixed(1)),
+                color: '#e44c4e'
+            },
+        ];
+
+        return data
+        
+    },[totalGains, totalExpenses]);
+
 
     const handleMonthSelected = (month: string) => {
         try {
@@ -189,6 +208,8 @@ const Dashboard: React.FC = () => {
                     footerText={message.footerText}
                     icon={message.icon}
                 />
+
+                <PieChart data={relationExpensesVersusGains}/>
                     
             </Content>
         </Container>
