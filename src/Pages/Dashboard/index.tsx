@@ -11,6 +11,7 @@ import MessageBox from "../../components/MessageBox";
 import happyImg from '../../assets/happy.svg';
 import sadImg from '../../assets/sad.svg';
 import PieChart from "../../components/PieChartBox";
+import HistoryBox from "../../components/HistoryBox";
 
 const Dashboard: React.FC = () => {
 
@@ -150,6 +151,48 @@ const Dashboard: React.FC = () => {
         
     },[totalGains, totalExpenses]);
 
+    const historyData = useMemo (() => {
+        return listOfMonths.map((_, month) => {
+
+            let amountInput = 0;
+            gains.forEach(gains => {
+                const date = new Date(gains.date);
+                const gainMonth = date.getMonth();
+                const gainYear = date.getFullYear();
+
+                if(gainMonth === month && gainYear === yearSelected){
+                    try{
+                        amountInput += Number(gains.amount);
+                    }catch{
+                        throw new Error('amountInput is invalid. Must be valid number.')
+                    }
+                }
+            });
+
+    let amountOutput = 0;
+            expenses.forEach(expenses => {
+                const date = new Date(expenses.date);
+                const expensesMonth = date.getMonth();
+                const expensesYear = date.getFullYear();
+
+                if(expensesMonth === month && expensesYear === yearSelected){
+                    try{
+                        amountOutput += Number(expenses.amount);
+                    }catch{
+                        throw new Error('amountOutput is invalid. Must be valid number.')
+                    }
+                }
+        });
+
+        return {
+            monthNumber: month,
+            month: listOfMonths[month].substring(0, 3),
+            amountInput,
+            amountOutput
+        }
+    });
+},[]);
+
 
     const handleMonthSelected = (month: string) => {
         try {
@@ -210,7 +253,14 @@ const Dashboard: React.FC = () => {
                 />
 
                 <PieChart data={relationExpensesVersusGains}/>
-                    
+                 
+
+                <HistoryBox 
+                    data={historyData}
+                    lineColorAmountInput="#f7931b"
+                    lineColorAmountOutput="#e44c4e"
+                />
+
             </Content>
         </Container>
     );
