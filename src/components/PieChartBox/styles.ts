@@ -53,11 +53,11 @@ export const Legend = styled.li<ILegendProps>`
 
     >div {
         background-color: ${props => props.color};
-        width: 35px;
-        height: 35px;
+        width: 45px;
+        height: 45px;
         border-radius: 25px;
-        font-size: 13px;
-        line-height: 35px;
+        font-size: 14px;
+        line-height: 45px;
         text-align: center;
     }
 
@@ -70,6 +70,10 @@ export const SideRight = styled.main`
     display: flex;
     flex: 1;
     justify-content: center;
+`;
+
+export const Cell = styled.div`
+    
 `;
 
 
