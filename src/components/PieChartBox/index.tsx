@@ -37,8 +37,10 @@ const PieChartBox: React.FC<IPieChartProps> = ({ data }) => (
                         <Pie data={data} dataKey="percent">
                             {
                                 data.map((indicator) => (
-                                 <Cell key={indicator.name} fill={indicator.color} />
-                                    ))
+                                    <Cell key={indicator.name} 
+                                        fill={indicator.color} 
+                                    />
+                                ))
                             }
                         </Pie>
                     </PieChart>
