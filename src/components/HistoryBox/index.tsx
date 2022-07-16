@@ -7,17 +7,17 @@ import { ResponsiveContainer, LineChart, Line, XAxis, CartesianGrid, Tooltip} fr
 interface IHistoryBoxProps {
     data: {
         month: string;
-        amountInput: number;
+        amountEntry: number;
         amountOutput: number;
 
     }[],
-    lineColorAmountInput: string;
+    lineColorAmountEntry: string;
     lineColorAmountOutput: string;
 }
 
 
 const HistoryBox: React.FC<IHistoryBoxProps> = ({
-        data, lineColorAmountInput, lineColorAmountOutput
+        data, lineColorAmountEntry, lineColorAmountOutput
 }) => (
 
         <Container>
@@ -26,15 +26,15 @@ const HistoryBox: React.FC<IHistoryBoxProps> = ({
 
             <ResponsiveContainer>
 
-                <LineChart data={[data]} >
+                <LineChart data={data} >
                     <CartesianGrid strokeDasharray="3 3" stroke="#cecece" />
                     <XAxis dataKey="month" stroke="#cecece"/>
                     <Tooltip />
                     <Line
                         type="monotone"
-                        dataKey="amountInput"
+                        dataKey="amountEntry"
                         name="Input"
-                        stroke= {lineColorAmountInput}
+                        stroke= {lineColorAmountEntry}
                         strokeWidth={5}
                         dot={{r: 5}}
                         activeDot={{r: 8}}

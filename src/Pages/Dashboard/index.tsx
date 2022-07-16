@@ -154,30 +154,30 @@ const Dashboard: React.FC = () => {
     const historyData = useMemo (() => {
         return listOfMonths.map((_, month) => {
 
-            let amountInput = 0;
-            gains.forEach(gains => {
-                const date = new Date(gains.date);
+            let amountEntry = 0;
+            gains.forEach(gain => {
+                const date = new Date(gain.date);
                 const gainMonth = date.getMonth();
                 const gainYear = date.getFullYear();
 
                 if(gainMonth === month && gainYear === yearSelected){
                     try{
-                        amountInput += Number(gains.amount);
+                        amountEntry += Number(gain.amount);
                     }catch{
-                        throw new Error('amountInput is invalid. Must be valid number.')
+                        throw new Error('amountEntry is invalid. Must be valid number.')
                     }
                 }
             });
 
     let amountOutput = 0;
-            expenses.forEach(expenses => {
-                const date = new Date(expenses.date);
-                const expensesMonth = date.getMonth();
-                const expensesYear = date.getFullYear();
+            expenses.forEach(expense => {
+                const date = new Date(expense.date);
+                const expenseMonth = date.getMonth();
+                const expenseYear = date.getFullYear();
 
-                if(expensesMonth === month && expensesYear === yearSelected){
+                if(expenseMonth === month && expenseYear === yearSelected){
                     try{
-                        amountOutput += Number(expenses.amount);
+                        amountOutput += Number(expense.amount);
                     }catch{
                         throw new Error('amountOutput is invalid. Must be valid number.')
                     }
@@ -186,12 +186,18 @@ const Dashboard: React.FC = () => {
 
         return {
             monthNumber: month,
-            month: listOfMonths[month].substring(0, 3),
-            amountInput,
+            month: listOfMonths[month],
+            amountEntry,
             amountOutput
         }
-    });
-},[]);
+
+        }).filter(item => {
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+            return (yearSelected === currentYear && item.monthNumber <= currentMonth) || (yearSelected < currentYear) || (yearSelected > currentYear)
+        
+        });
+},[yearSelected]);
 
 
     const handleMonthSelected = (month: string) => {
@@ -257,7 +263,7 @@ const Dashboard: React.FC = () => {
 
                 <HistoryBox 
                     data={historyData}
-                    lineColorAmountInput="#f7931b"
+                    lineColorAmountEntry="#f7931b"
                     lineColorAmountOutput="#e44c4e"
                 />
 
