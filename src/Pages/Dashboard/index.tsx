@@ -194,7 +194,7 @@ const Dashboard: React.FC = () => {
         }).filter(item => {
             const currentMonth = new Date().getMonth();
             const currentYear = new Date().getFullYear();
-            return (yearSelected === currentYear && item.monthNumber <= currentMonth) || (yearSelected < currentYear) || (yearSelected > currentYear)
+            return (yearSelected === currentYear && item.monthNumber <= currentMonth) || (yearSelected < currentYear) || (yearSelected < currentYear)
         
         });
 },[yearSelected]);
