@@ -4,14 +4,12 @@ import { ThemeContext } from "styled-components";
 import dark from '../Styles/Themes/light';
 import light from "../Styles/Themes/light";
 
+
+
 interface IThemeContext {
-   
     toggleTheme(): void;
     theme: ITheme;
-}
-
-interface BaseLayoutProps {
-    children?: ReactNode
+    children?: ReactNode;
 }
 
 interface ITheme {
@@ -33,21 +31,36 @@ interface ITheme {
     }
 }
 
+
+interface BaseLayoutProps {
+    children?: ReactNode;
+}
+
     const themeContext = createContext<IThemeContext>({} as IThemeContext);
 
     const ThemeProvider: React.FC<BaseLayoutProps> = ({ children }) => {
-        const [theme, setTheme] = useState<ITheme>(dark);
+        const [theme, setTheme] = useState<ITheme>(() => {
+            const themeSaved = localStorage.getItem('@MyWallet:theme');
+
+            if(themeSaved) {
+                return JSON.parse(themeSaved);
+            }else{
+                return dark;
+            }
+        });
 
         const toggleTheme = () => {
             if(theme.title === 'dark'){
                 setTheme(light);
+                localStorage.setItem('@MyWallet:theme', JSON.stringify(light));
             }else{
                 setTheme(dark);
+                localStorage.setItem('@MyWallet:theme', JSON.stringify(dark));
             }
         };
 
         return (
-            <ThemeContext.Provider value={{ toggleTheme, theme}}>
+            <ThemeContext.Provider value= {{ ...toggleTheme, ...theme }}>
                 {children}
             </ThemeContext.Provider>    
         )
