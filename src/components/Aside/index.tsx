@@ -1,9 +1,14 @@
 import React from "react";
 import logoimg from '../../assets/wallet.png'
-import { Container, Header, LogImg, Title, MenuContainer, MenuItemLink } from './styles';
+import { Container, Header, LogImg, Title, MenuContainer, MenuItemLink, MenuItemButton } from './styles';
 import { MdDashboard, MdArrowDownward, MdArrowUpward, MdExitToApp } from 'react-icons/md';
 
+import { useAuth } from "../../hooks/auth";
+
 const Aside: React.FC = () => {
+
+const { signOut } = useAuth();
+
     return (
 
         <Container>
@@ -13,7 +18,7 @@ const Aside: React.FC = () => {
             </Header>
 
             <MenuContainer>
-                <MenuItemLink href='/dashboard'>
+                <MenuItemLink href='/'>
                     <MdDashboard />
                     Dashboard
                 </MenuItemLink>
@@ -25,10 +30,10 @@ const Aside: React.FC = () => {
                     <MdArrowDownward />
                     Output
                 </MenuItemLink>
-                <MenuItemLink href='#'>
+                <MenuItemButton onClick={signOut}>
                     <MdExitToApp />
                     Exit
-                </MenuItemLink>
+                </MenuItemButton>
             </MenuContainer>
             
         </Container>
