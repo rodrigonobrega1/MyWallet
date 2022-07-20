@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.js": "/http//rodrigonobrega1.github.io/MyWallet/static/js/main.8d0e6c8c.js",
+    "static/media/happy.svg": "/http//rodrigonobrega1.github.io/MyWallet/static/media/happy.2abe7ca8cdff14aeacee32f660b1fad7.svg",
+    "static/media/sad.svg": "/http//rodrigonobrega1.github.io/MyWallet/static/media/sad.957998fee21f026e3cdc5e19142801c3.svg",
+    "static/media/dollar.svg": "/http//rodrigonobrega1.github.io/MyWallet/static/media/dollar.d4a9bb647c76c9bf9987a474ccdcfd00.svg",
+    "index.html": "/http//rodrigonobrega1.github.io/MyWallet/index.html",
+    "static/media/arrow-up.svg": "/http//rodrigonobrega1.github.io/MyWallet/static/media/arrow-up.e0895fae8780a6c77b83ebe4b5ee53e3.svg",
+    "static/media/arrow-down.svg": "/http//rodrigonobrega1.github.io/MyWallet/static/media/arrow-down.7681f6e64f43369e79faecc73626b039.svg",
+    "main.8d0e6c8c.js.map": "/http//rodrigonobrega1.github.io/MyWallet/static/js/main.8d0e6c8c.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.8d0e6c8c.js"
+  ]
+}
